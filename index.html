@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Attendant Cut Off - 3D Cards</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.3) 0%, transparent 50%),
+                linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+            min-height: 100vh;
+            padding: 20px;
+            perspective: 1000px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .nature-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                repeating-conic-gradient(from 0deg at 50% 50%, 
+                    rgba(255, 255, 255, 0.03) 0deg, 
+                    transparent 2deg, 
+                    rgba(255, 255, 255, 0.03) 4deg, 
+                    transparent 6deg),
+                repeating-linear-gradient(45deg, 
+                    rgba(255, 255, 255, 0.02) 0px, 
+                    rgba(255, 255, 255, 0.02) 1px, 
+                    transparent 1px, 
+                    transparent 20px),
+                repeating-linear-gradient(-45deg, 
+                    rgba(0, 0, 0, 0.02) 0px, 
+                    rgba(0, 0, 0, 0.02) 1px, 
+                    transparent 1px, 
+                    transparent 20px),
+                radial-gradient(ellipse at center, 
+                    rgba(255, 255, 255, 0.1) 0%, 
+                    rgba(255, 255, 255, 0.05) 25%, 
+                    transparent 70%);
+            animation: textureShift 20s ease-in-out infinite;
+        }
+        
+        @keyframes textureShift {
+            0%, 100% { 
+                transform: scale(1) rotate(0deg);
+                filter: hue-rotate(0deg) brightness(1);
+            }
+            25% { 
+                transform: scale(1.02) rotate(1deg);
+                filter: hue-rotate(90deg) brightness(1.1);
+            }
+            50% { 
+                transform: scale(0.98) rotate(-1deg);
+                filter: hue-rotate(180deg) brightness(0.9);
+            }
+            75% { 
+                transform: scale(1.01) rotate(0.5deg);
+                filter: hue-rotate(270deg) brightness(1.05);
+            }
+        }
+        
+        .texture-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(0, 0, 0, 0.1) 0%, transparent 50%),
+                repeating-linear-gradient(0deg, 
+                    transparent 0px, 
+                    rgba(255, 255, 255, 0.03) 1px, 
+                    transparent 2px, 
+                    transparent 40px),
+                repeating-linear-gradient(90deg, 
+                    transparent 0px, 
+                    rgba(255, 255, 255, 0.03) 1px, 
+                    transparent 2px, 
+                    transparent 40px);
+            animation: overlayPulse 15s ease-in-out infinite;
+        }
+        
+        @keyframes overlayPulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+        
+        .geometric-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .shape {
+            position: absolute;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: shapeFloat 12s ease-in-out infinite;
+        }
+        
+        .shape1 {
+            top: 10%;
+            left: 5%;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            animation-delay: 0s;
+        }
+        
+        .shape2 {
+            top: 20%;
+            right: 10%;
+            width: 60px;
+            height: 60px;
+            transform: rotate(45deg);
+            animation-delay: 2s;
+        }
+        
+        .shape3 {
+            bottom: 30%;
+            left: 15%;
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
+            animation-delay: 4s;
+        }
+        
+        .shape4 {
+            top: 60%;
+            right: 20%;
+            width: 70px;
+            height: 70px;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            animation-delay: 6s;
+        }
+        
+        .shape5 {
+            bottom: 10%;
+            right: 5%;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            animation-delay: 8s;
+        }
+        
+        .shape6 {
+            top: 40%;
+            left: 60%;
+            width: 50px;
+            height: 50px;
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+            animation-delay: 10s;
+        }
+        
+        @keyframes shapeFloat {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg) scale(1);
+                opacity: 0.6;
+            }
+            25% { 
+                transform: translateY(-20px) rotate(90deg) scale(1.1);
+                opacity: 0.8;
+            }
+            50% { 
+                transform: translateY(-10px) rotate(180deg) scale(0.9);
+                opacity: 0.4;
+            }
+            75% { 
+                transform: translateY(-30px) rotate(270deg) scale(1.05);
+                opacity: 0.7;
+            }
+        }
+        
+        .particle-system {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.2) 70%, transparent 100%);
+            border-radius: 50%;
+            animation: particleFloat 8s ease-in-out infinite;
+        }
+        
+        .particle1 {
+            top: 20%;
+            left: 10%;
+            width: 4px;
+            height: 4px;
+            animation-delay: 0s;
+        }
+        
+        .particle2 {
+            top: 60%;
+            left: 80%;
+            width: 6px;
+            height: 6px;
+            animation-delay: 1s;
+        }
+        
+        .particle3 {
+            top: 80%;
+            left: 30%;
+            width: 3px;
+            height: 3px;
+            animation-delay: 2s;
+        }
+        
+        .particle4 {
+            top: 40%;
+            left: 70%;
+            width: 5px;
+            height: 5px;
+            animation-delay: 3s;
+        }
+        
+        .particle5 {
+            top: 10%;
+            left: 60%;
+            width: 4px;
+            height: 4px;
+            animation-delay: 4s;
+        }
+        
+        .particle6 {
+            top: 70%;
+            left: 20%;
+            width: 7px;
+            height: 7px;
+            animation-delay: 5s;
+        }
+        
+        @keyframes particleFloat {
+            0%, 100% { 
+                transform: translateY(0px) translateX(0px) scale(1);
+                opacity: 0.3;
+            }
+            25% { 
+                transform: translateY(-30px) translateX(10px) scale(1.2);
+                opacity: 0.8;
+            }
+            50% { 
+                transform: translateY(-15px) translateX(-10px) scale(0.8);
+                opacity: 0.5;
+            }
+            75% { 
+                transform: translateY(-40px) translateX(5px) scale(1.1);
+                opacity: 0.7;
+            }
+        }
+        
+        .depth-layers {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .depth-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.05));
+            animation: depthShift 10s ease-in-out infinite;
+        }
+        
+        .layer1 {
+            transform: translateZ(100px) scale(1.1);
+            animation-delay: 0s;
+        }
+        
+        .layer2 {
+            transform: translateZ(50px) scale(1.05);
+            animation-delay: 2s;
+        }
+        
+        .layer3 {
+            transform: translateZ(0px) scale(1);
+            animation-delay: 4s;
+        }
+        
+        @keyframes depthShift {
+            0%, 100% { 
+                opacity: 0.3;
+                transform: translateZ(var(--z)) scale(var(--scale)) rotateX(0deg);
+            }
+            50% { 
+                opacity: 0.6;
+                transform: translateZ(var(--z)) scale(var(--scale)) rotateX(2deg);
+            }
+        }
+        
+        .main-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .main-title {
+            color: white;
+            font-size: 3rem;
+            font-weight: 800;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            margin-bottom: 10px;
+            animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes titleGlow {
+            from { text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.2); }
+            to { text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 0 30px rgba(255, 255, 255, 0.4); }
+        }
+        
+        .section {
+            margin-bottom: 60px;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transform: rotateX(5deg);
+            animation: headerFloat 3s ease-in-out infinite;
+        }
+        
+        .section-header.tsp {
+            background: linear-gradient(135deg, #28a745, #20c997);
+        }
+        
+        @keyframes headerFloat {
+            0%, 100% { transform: rotateX(5deg) translateY(0px); }
+            50% { transform: rotateX(5deg) translateY(-5px); }
+        }
+        
+        .section-title {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .category-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(240, 240, 240, 0.9));
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.15),
+                0 0 0 1px rgba(255, 255, 255, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            transform: rotateX(5deg) rotateY(2deg);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            animation: cardFloat 6s ease-in-out infinite;
+        }
+        
+        @keyframes cardFloat {
+            0%, 100% { 
+                transform: rotateX(5deg) rotateY(2deg) translateY(0px) scale(1);
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            }
+            25% { 
+                transform: rotateX(7deg) rotateY(1deg) translateY(-3px) scale(1.01);
+                box-shadow: 0 25px 50px rgba(0, 0, 0, 0.18);
+            }
+            50% { 
+                transform: rotateX(3deg) rotateY(3deg) translateY(-2px) scale(0.99);
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+            }
+            75% { 
+                transform: rotateX(6deg) rotateY(0deg) translateY(-4px) scale(1.005);
+                box-shadow: 0 30px 60px rgba(0, 0, 0, 0.16);
+            }
+        }
+        
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+            opacity: 0;
+            animation: glowPulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 0.3; }
+        }
+        
+        .category-card:hover::before {
+            animation: shine 0.6s ease-in-out;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); opacity: 0; }
+        }
+        
+        .category-card:hover {
+            transform: rotateX(0deg) rotateY(0deg) translateY(-10px) scale(1.02);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.15),
+                0 0 0 1px rgba(255, 255, 255, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        }
+        
+        .category-card.gen {
+            border: 3px solid transparent;
+            background: linear-gradient(145deg, #fff5f5, #ffe0e0), linear-gradient(45deg, #ff6b6b, #ee5a24, #ff6b6b);
+            background-clip: padding-box, border-box;
+            background-origin: padding-box, border-box;
+            animation: cardFloat 6s ease-in-out infinite, borderRotate 8s linear infinite;
+        }
+        
+        .category-card.gen-ews {
+            border: 3px solid transparent;
+            background: linear-gradient(145deg, #f0f8ff, #e0f0ff), linear-gradient(45deg, #4facfe, #00f2fe, #4facfe);
+            background-clip: padding-box, border-box;
+            background-origin: padding-box, border-box;
+            animation: cardFloat 6s ease-in-out infinite, borderRotate 8s linear infinite;
+        }
+        
+        .category-card.sc {
+            border: 3px solid transparent;
+            background: linear-gradient(145deg, #f0fff4, #e0ffe0), linear-gradient(45deg, #28a745, #20c997, #28a745);
+            background-clip: padding-box, border-box;
+            background-origin: padding-box, border-box;
+            animation: cardFloat 6s ease-in-out infinite, borderRotate 8s linear infinite;
+        }
+        
+        .category-card.st {
+            border: 3px solid transparent;
+            background: linear-gradient(145deg, #fffbf0, #fff8e0), linear-gradient(45deg, #ffc107, #fd7e14, #ffc107);
+            background-clip: padding-box, border-box;
+            background-origin: padding-box, border-box;
+            animation: cardFloat 6s ease-in-out infinite, borderRotate 8s linear infinite;
+        }
+        
+        .category-card.obc {
+            border: 3px solid transparent;
+            background: linear-gradient(145deg, #f8f5ff, #f0e8ff), linear-gradient(45deg, #6f42c1, #9c27b0, #6f42c1);
+            background-clip: padding-box, border-box;
+            background-origin: padding-box, border-box;
+            animation: cardFloat 6s ease-in-out infinite, borderRotate 8s linear infinite;
+        }
+        
+        .category-card.mbc {
+            border: 3px solid transparent;
+            background: linear-gradient(145deg, #fff8f0, #ffe8d0), linear-gradient(45deg, #fd7e14, #ff6b35, #fd7e14);
+            background-clip: padding-box, border-box;
+            background-origin: padding-box, border-box;
+            animation: cardFloat 6s ease-in-out infinite, borderRotate 8s linear infinite;
+        }
+        
+        .category-card.sah {
+            border: 3px solid transparent;
+            background: linear-gradient(145deg, #f0fffe, #e0fff8), linear-gradient(45deg, #20c997, #17a2b8, #20c997);
+            background-clip: padding-box, border-box;
+            background-origin: padding-box, border-box;
+            animation: cardFloat 6s ease-in-out infinite, borderRotate 8s linear infinite;
+        }
+        
+        @keyframes borderRotate {
+            0% { background-position: 0% 50%, 0% 50%; }
+            50% { background-position: 100% 50%, 100% 50%; }
+            100% { background-position: 0% 50%, 0% 50%; }
+        }
+        
+        .category-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            text-align: center;
+            padding: 15px;
+            border-radius: 15px;
+            color: white;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 2px;
+        }
+        
+        .category-title.gen {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+        }
+        
+        .category-title.gen-ews {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+        }
+        
+        .category-title.sc {
+            background: linear-gradient(135deg, #28a745, #20c997);
+        }
+        
+        .category-title.st {
+            background: linear-gradient(135deg, #ffc107, #fd7e14);
+        }
+        
+        .category-title.obc {
+            background: linear-gradient(135deg, #6f42c1, #9c27b0);
+        }
+        
+        .category-title.mbc {
+            background: linear-gradient(135deg, #fd7e14, #ff6b35);
+        }
+        
+        .category-title.sah {
+            background: linear-gradient(135deg, #20c997, #17a2b8);
+        }
+        
+        .subcategory-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: rowMorph 5s ease-in-out infinite;
+        }
+        
+        @keyframes rowMorph {
+            0%, 100% { 
+                border-radius: 15px;
+                transform: scale(1);
+            }
+            25% { 
+                border-radius: 25px 5px 25px 5px;
+                transform: scale(1.01);
+            }
+            50% { 
+                border-radius: 5px 25px 5px 25px;
+                transform: scale(0.99);
+            }
+            75% { 
+                border-radius: 20px 10px 20px 10px;
+                transform: scale(1.005);
+            }
+        }
+        
+        .subcategory-row::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .subcategory-row:hover::before {
+            transform: scaleY(1);
+        }
+        
+        .subcategory-row:hover {
+            transform: translateX(10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 0.95);
+        }
+        
+        .subcategory-name {
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: #1a252f;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subcategory-score {
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: #2980b9;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            background: rgba(52, 152, 219, 0.2);
+            padding: 5px 10px;
+            border-radius: 8px;
+            border: 2px solid #2980b9;
+        }
+        
+        .subcategory-dob {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #1e8449;
+            font-family: 'Courier New', monospace;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            background: rgba(39, 174, 96, 0.2);
+            padding: 5px 10px;
+            border-radius: 8px;
+            border: 1px solid #27ae60;
+        }
+        
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .floating-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .floating-circle:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .floating-circle:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+        
+        .floating-circle:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+        
+        .floating-circle:nth-child(4) {
+            width: 120px;
+            height: 120px;
+            top: 30%;
+            right: 30%;
+            animation-delay: 6s;
+        }
+        
+        .floating-circle:nth-child(5) {
+            width: 90px;
+            height: 90px;
+            top: 80%;
+            right: 60%;
+            animation-delay: 1s;
+        }
+        
+        .floating-circle:nth-child(6) {
+            width: 70px;
+            height: 70px;
+            top: 40%;
+            left: 60%;
+            animation-delay: 3s;
+        }
+        
+        .floating-circle:nth-child(7) {
+            width: 110px;
+            height: 110px;
+            top: 70%;
+            left: 80%;
+            animation-delay: 5s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+            25% { transform: translateY(-20px) rotate(90deg) scale(1.1); }
+            50% { transform: translateY(-10px) rotate(180deg) scale(0.9); }
+            75% { transform: translateY(-30px) rotate(270deg) scale(1.05); }
+        }
+        
+        .thank-you-section {
+            text-align: center;
+            margin: 60px 0 40px 0;
+            padding: 0 20px;
+        }
+        
+        .thank-you-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(240, 240, 240, 0.9));
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.15),
+                0 0 0 1px rgba(255, 255, 255, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            transform: rotateX(5deg) rotateY(2deg);
+            animation: thankYouFloat 4s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .thank-you-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+            transform: rotate(45deg);
+            animation: thankYouShine 3s ease-in-out infinite;
+        }
+        
+        @keyframes thankYouFloat {
+            0%, 100% { 
+                transform: rotateX(5deg) rotateY(2deg) translateY(0px) scale(1);
+            }
+            50% { 
+                transform: rotateX(3deg) rotateY(-2deg) translateY(-8px) scale(1.02);
+            }
+        }
+        
+        @keyframes thankYouShine {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+        
+        .thank-you-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #2c3e50;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleGradient 3s ease-in-out infinite;
+        }
+        
+        @keyframes titleGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .thank-you-message {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #34495e;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .cards-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .category-card {
+                padding: 20px;
+                transform: none;
+            }
+            
+            .category-card:hover {
+                transform: translateY(-5px) scale(1.01);
+            }
+            
+            .category-title {
+                font-size: 1.5rem;
+            }
+            
+            .subcategory-name {
+                font-size: 1rem;
+            }
+            
+            .subcategory-score {
+                font-size: 1.1rem;
+            }
+            
+            .thank-you-card {
+                padding: 30px 20px;
+                transform: none;
+            }
+            
+            .thank-you-title {
+                font-size: 2rem;
+            }
+            
+            .thank-you-message {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="nature-background"></div>
+    
+    <div class="texture-overlay"></div>
+    
+    <div class="geometric-shapes">
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+        <div class="shape shape3"></div>
+        <div class="shape shape4"></div>
+        <div class="shape shape5"></div>
+        <div class="shape shape6"></div>
+    </div>
+    
+    <div class="particle-system">
+        <div class="particle particle1"></div>
+        <div class="particle particle2"></div>
+        <div class="particle particle3"></div>
+        <div class="particle particle4"></div>
+        <div class="particle particle5"></div>
+        <div class="particle particle6"></div>
+    </div>
+    
+    <div class="depth-layers">
+        <div class="depth-layer layer1" style="--z: 100px; --scale: 1.1;"></div>
+        <div class="depth-layer layer2" style="--z: 50px; --scale: 1.05;"></div>
+        <div class="depth-layer layer3" style="--z: 0px; --scale: 1;"></div>
+    </div>
+    
+    <div class="floating-elements">
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+    </div>
+    
+    <div class="main-header">
+        <h1 class="main-title">🐾 Animal Attendant Final Cut Off 🐾</h1>
+    </div>
+    
+    <!-- NTSP Section -->
+    <div class="section">
+        <div class="section-header">
+            <h2 class="section-title">NTSP Cut Off</h2>
+        </div>
+        
+        <div class="cards-container">
+            <!-- GEN Card -->
+            <div class="category-card gen">
+                <div class="category-title gen">GEN</div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">GEN</span>
+                    <span class="subcategory-score">130.8425</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">FEM</span>
+                    <span class="subcategory-score">123.8471</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">WID</span>
+                    <span class="subcategory-score">73.391</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">DIV</span>
+                    <span class="subcategory-score">101.8206</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">EX</span>
+                    <span class="subcategory-score">75.5876</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+            </div>
+            
+            <!-- GEN-EWS Card -->
+            <div class="category-card gen-ews">
+                <div class="category-title gen-ews">GEN-EWS</div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">GEN</span>
+                    <span class="subcategory-score">123.4539</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">FEM</span>
+                    <span class="subcategory-score">114.9427</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">WID</span>
+                    <span class="subcategory-score">64.2501</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">DIV</span>
+                    <span class="subcategory-score">86.8092</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">EX</span>
+                    <span class="subcategory-score">45.0915</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+            </div>
+            
+            <!-- SC Card -->
+            <div class="category-card sc">
+                <div class="category-title sc">SC</div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">GEN</span>
+                    <span class="subcategory-score">115.8318</span>
+                    <span class="subcategory-dob">01-01-1995</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">FEM</span>
+                    <span class="subcategory-score">107.2229</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">WID</span>
+                    <span class="subcategory-score">60.269</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">DIV</span>
+                    <span class="subcategory-score">77.4589</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">EX</span>
+                    <span class="subcategory-score">45.9623</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+            </div>
+            
+            <!-- ST Card -->
+            <div class="category-card st">
+                <div class="category-title st">ST</div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">GEN</span>
+                    <span class="subcategory-score">111.5795</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">FEM</span>
+                    <span class="subcategory-score">106.7968</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">WID</span>
+                    <span class="subcategory-score">60.15</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">DIV</span>
+                    <span class="subcategory-score">66.0338</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">EX</span>
+                    <span class="subcategory-score">46.9577</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+            </div>
+            
+            <!-- OBC Card -->
+            <div class="category-card obc">
+                <div class="category-title obc">OBC</div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">GEN</span>
+                    <span class="subcategory-score">127.4919</span>
+                    <span class="subcategory-dob">19-06-1994</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">FEM</span>
+                    <span class="subcategory-score">119.735</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">WID</span>
+                    <span class="subcategory-score">66.2406</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">DIV</span>
+                    <span class="subcategory-score">96.3641</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">EX</span>
+                    <span class="subcategory-score">66.0232</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+            </div>
+            
+            <!-- MBC Card -->
+            <div class="category-card mbc">
+                <div class="category-title mbc">MBC</div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">GEN</span>
+                    <span class="subcategory-score">124.1455</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">FEM</span>
+                    <span class="subcategory-score">111.9457</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">WID</span>
+                    <span class="subcategory-score">60.3492</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">DIV</span>
+                    <span class="subcategory-score">85.6479</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">EX</span>
+                    <span class="subcategory-score">59.025</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+            </div>
+            
+            <!-- SAH Card -->
+            <div class="category-card sah">
+                <div class="category-title sah">SAH</div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">GEN</span>
+                    <span class="subcategory-score">66.3121</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">FEM</span>
+                    <span class="subcategory-score">61.0155</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">WID</span>
+                    <span class="subcategory-score">-</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">DIV</span>
+                    <span class="subcategory-score">-</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">EX</span>
+                    <span class="subcategory-score">-</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- TSP Section -->
+    <div class="section">
+        <div class="section-header tsp">
+            <h2 class="section-title">TSP Cut Off</h2>
+        </div>
+        
+        <div class="cards-container">
+            <!-- GEN Card -->
+            <div class="category-card gen">
+                <div class="category-title gen">GEN</div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">GEN</span>
+                    <span class="subcategory-score">111.8614</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">FEM</span>
+                    <span class="subcategory-score">102.5894</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">WID</span>
+                    <span class="subcategory-score">61.4309</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">DIV</span>
+                    <span class="subcategory-score">63.2513</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">EX</span>
+                    <span class="subcategory-score">49.5702</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+            </div>
+            
+            <!-- SC Card -->
+            <div class="category-card sc">
+                <div class="category-title sc">SC</div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">GEN</span>
+                    <span class="subcategory-score">102.7641</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">FEM</span>
+                    <span class="subcategory-score">93.025</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">WID</span>
+                    <span class="subcategory-score">-</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">DIV</span>
+                    <span class="subcategory-score">-</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">EX</span>
+                    <span class="subcategory-score">-</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+            </div>
+            
+            <!-- ST Card -->
+            <div class="category-card st">
+                <div class="category-title st">ST</div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">GEN</span>
+                    <span class="subcategory-score">94.7516</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">FEM</span>
+                    <span class="subcategory-score">86.7395</span>
+                    <span class="subcategory-dob">14-04-2001</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">WID</span>
+                    <span class="subcategory-score">-</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">DIV</span>
+                    <span class="subcategory-score">-</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+                <div class="subcategory-row">
+                    <span class="subcategory-name">EX</span>
+                    <span class="subcategory-score">-</span>
+                    <span class="subcategory-dob">-</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Thank You Section -->
+    <div class="thank-you-section">
+        <div class="thank-you-card">
+            <h2 class="thank-you-title">🙏 MP SALODIYA 🙏</h2>
+            <p class="thank-you-message">सभी सफल विद्यार्थियों को शुभकामनाएँ</p>
+        </div>
+    </div>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96b7fb4c46e484d1',t:'MTc1NDU4MjM3MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
